@@ -34,6 +34,7 @@ $$
 $$
 
 where $\ast$ is the convolution product 
+
 $$
     (u(\cdot,t) \ast \omega) (x) = \int_{\mathbb{R}} u(x-y, t) \, \omega(y) \, dy,
 $$
@@ -43,9 +44,9 @@ and $\omega$ is an integrable kernel. The convolution is precisely what makes th
 
 We present in this repo two different schemes to solve the non-local scalar conservation law : 
 
-- a semi-lagrangian scheme, using the characteristics to derive an analytic expression of the solution, alongside a Fourier interpolation, which suffers from the Gibbs phenomenon, but requires no $\text{CFL}$-type condition. 
+- a semi-lagrangian scheme, using the characteristics to derive an analytic expression of the solution, alongside a Fourier interpolation, which suffers from the Gibbs phenomenon, but requires no $\text{CFL}$-type condition. the associated notebook is ```fourier_int.ipynb```.
 
-- a "lagrangian-eulerian" scheme directly extracted from [E. Abreu et al. 2022] that lets the space discretization evolve with the characteristic curves for a better approximation of discontinuities, but which suffers from a restrictive $\text{CFL}$ condition. 
+- a "lagrangian-eulerian" scheme directly extracted from [E. Abreu et al. 2022] that lets the space discretization evolve with the characteristic curves for a better approximation of discontinuities, but which suffers from a restrictive $\text{CFL}$ condition. The associated notebook is ```lag_euler.ipynb```.
 
 ## Numerical Examples
 
