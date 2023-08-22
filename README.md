@@ -30,11 +30,12 @@ Here are some examples of well-known scalar conservation laws :
 A non-local scalar conservation law is a conservation law that has a slightly different form than the one above 
 
 $$ 
-\partial_t u(x,t) + \partial_x f([u(\cdot,t) \ast \omega](x)) = 0,
+\partial_t u(x,t) + \partial_x f((u(\cdot,t) \ast \omega)(x)) = 0,
 $$
+
 where $\ast$ is the convolution product 
 $$
-    [u(\cdot,t) \ast \omega] (x) = \int_{\mathbb{R}} u(x-y, t) \, \omega(y) \, dy,
+    (u(\cdot,t) \ast \omega) (x) = \int_{\mathbb{R}} u(x-y, t) \, \omega(y) \, dy,
 $$
 and $\omega$ is an integrable kernel. The convolution is precisely what makes the conservation law "non-local" as it requires the knowledge of the function $u$ on the whole space (more precisely on a translation of the support of the kernel $\omega$) whereas a derivation is computed point-wise, that is, locally. 
 
