@@ -141,45 +141,45 @@ end
 
 
 #### Sedimentation Model #########
-equation = "sedimentation"
-eta = 1.0;
-x_min = 0.0;
-x_max = 4.0;  
-N = 4000; 
-h = (x_max - x_min) / N;
-dt = h / 40; 
-_x = collect([x_min + j*h for j=0:N-1])
+# equation = "sedimentation"
+# eta = 1.0;
+# x_min = 0.0;
+# x_max = 4.0;  
+# N = 4000; 
+# h = (x_max - x_min) / N;
+# dt = h / 40; 
+# _x = collect([x_min + j*h for j=0:N-1])
 
-σ = 0.2
-rho_0(x) = exp(-(x-2.0)^2/(2*σ^2));
+# σ = 0.2
+# rho_0(x) = exp(-(x-2.0)^2/(2*σ^2));
 
-function k(x)
-    if (x>-2) && (x<2)
-        return 3/8 * (1 - x^2 /4)
-    else
-        return 0.0
-    end
-end
+# function k(x)
+#     if (x>-2) && (x<2)
+#         return 3/8 * (1 - x^2 /4)
+#     else
+#         return 0.0
+#     end
+# end
 
-w(x) =  k(x/eta) / eta; 
-f(x) = x * (1-x); 
-v(x) = (1-x)^4; 
+# w(x) =  k(x/eta) / eta; 
+# f(x) = x * (1-x); 
+# v(x) = (1-x)^4; 
 ####################################
 
 #### Burgers #################################
-# equation = "burgers"
-# eta = 1.0; 
-# x_min = -10; 
-# x_max = 10;
-# N = 1000; 
-# h = (x_max - x_min) / N;
-# dt = h / 40;
-# _x = collect([x_min + j*h for j=0:N-1]);
+equation = "burgers"
+eta = 1.0; 
+x_min = -10; 
+x_max = 10;
+N = 1000; 
+h = (x_max - x_min) / N;
+dt = h / 40;
+_x = collect([x_min + j*h for j=0:N-1]);
 
-# w(x) = 1/eta; 
-# f(x) = 1/2 * x^2;
-# v(x) = 1 - x;
-# rho_0(x) = 4 * ((1/(7*pi)^0.5) * exp(- x^2/7));
+w(x) = 1/eta; 
+f(x) = 1/2 * x^2;
+v(x) = 1 - x;
+rho_0(x) = 4 * ((1/(7*pi)^0.5) * exp(- x^2/7));
 ##############################################
 
 ### Analytic Rectangle ##################
@@ -243,8 +243,8 @@ v(x) = (1-x)^4;
 ##############################################
 
 
-T = 0.5;
-solutions = solve(rho_0, v, w, f, N, x_max, x_min, dt, T, "downstream");
+T = 0.1;
+@time solutions = solve(rho_0, v, w, f, N, x_max, x_min, dt, T, "downstream");
 
 plot(_x, solutions[1], label="inital cond", title= L"solution $\rho(x,t)$");
 n_curves = 10;
@@ -259,5 +259,5 @@ final_label = "T=" * string(T) * "s"
 plot!(_x, solutions[end], label=final_label); 
 xlabel!(L"$x$");
 
-image_name = "./graphs/julia_example_" * equation * "_T=" * string(T) * "_N=" * string(N) * "_dt=" * string(round(dt, digits=3)) * ".png";
+image_name = "../graphs/julia_example_" * equation * "_T=" * string(T) * "_N=" * string(N) * "_dt=" * string(round(dt, digits=3)) * "solving_time=13s.png";
 savefig(image_name);

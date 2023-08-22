@@ -30,7 +30,7 @@ Here are some examples of well-known scalar conservation laws :
 A non-local scalar conservation law is a conservation law that has a slightly different form than the one above 
 
 $$ 
-\partial_t u(x,t) + \partial_x f((u(\cdot,t) \ast \omega)(x)) = 0,
+\partial_t u(x,t) + \partial_x f(V(u(\cdot,t) \ast \omega)(x)) = 0,
 $$
 
 where $\ast$ is the convolution product 
@@ -38,28 +38,31 @@ where $\ast$ is the convolution product
 $$
     (u(\cdot,t) \ast \omega) (x) = \int_{\mathbb{R}} u(x-y, t) \, \omega(y) \, dy,
 $$
-and $\omega$ is an integrable kernel. The convolution is precisely what makes the conservation law "non-local" as it requires the knowledge of the function $u$ on the whole space (more precisely on a translation of the support of the kernel $\omega$) whereas a derivation is computed point-wise, that is, locally. 
+,$\omega$ is an integrable kernel and $V$ is a velocity function. The convolution is precisely what makes the conservation law "non-local" as it requires the knowledge of the function $u$ on the whole space (more precisely on the support of a translation of the kernel $\omega$) whereas a derivation is computed point-wise, that is, locally. 
 
 ## Schemes 
 
 We present in this repo two different schemes to solve the non-local scalar conservation law : 
 
-- a semi-lagrangian scheme, using the characteristics to derive an analytic expression of the solution, alongside a Fourier interpolation, which suffers from the Gibbs phenomenon, but requires no $\text{CFL}$-type condition. the associated notebook is ```fourier_int.ipynb```.
+- a semi-lagrangian scheme, using the characteristics to derive an analytic expression of the solution, alongside a Fourier interpolation, which suffers from the Gibbs phenomenon, but requires no $\text{CFL}$-type condition. The associated notebook is ```fourier_int.ipynb```.
 
-- a "lagrangian-eulerian" scheme directly extracted from [E. Abreu et al. 2022] that lets the space discretization evolve with the characteristic curves for a better approximation of discontinuities, but which suffers from a restrictive $\text{CFL}$ condition. The associated notebook is ```lag_euler.ipynb```.
+- a "lagrangian-eulerian" scheme directly extracted from [E. Abreu et al. 2022] that lets the space discretization evolve with the characteristic curves for a better approximation of discontinuities, but which suffers from a restrictive $\text{CFL}$ condition. The associated notebook is ```lag_euler.ipynb```. We added a translation of the code in Julia for performance issues : for identical discretization parameters, a simulation of time $T=0.1$ s took 23min for the python code against 12s on the Julia version. The julia code is ```lag_euler.jl```.
 
 ## Numerical Examples
 
-We have used those schemes to study a non-local extension of Burger's equation as a simple example of non-linearity, using a parametrized kernel with form 
+- We have used those schemes to study (under the label "burgers") a non-local extension of Burger's equation with velocity $V(x) = 1-x$ as a simple example of non-linearity, using a parametrized kernel with form 
+$$
+    \omega_{\eta}(x) = \mathbb{1}_{[0,\eta)}(x) (1/\eta),
+$$
+which implies that $\text{supp}(\omega) = [0, \eta]$, and a gaussian initial condition $u_0(x) = \frac{4}{\sqrt{7\pi}} \exp(-x^2/7)$.
 
+- We also studied (under the label "rectangle") the evolution of a characteristic function as initial condition $u_0(x) = \mathbb{1}_{[0,1)}(x)$ and $V(x)=x$, with kernel 
 $$
-    \omega_{\eta}(x) = \frac{k(x/\eta)}{\eta}, \quad \eta \in (0,1), \quad k(x) = 
-        \begin{cases}
-            \frac{3}{8}  (1 - x^2/4) \quad & \text {if} \quad |x|<2, \\
-            0 \quad & \text{else},
-        \end{cases}
-$$
-which implies that $\text{supp}(\omega) = [-2/\eta, 2/\eta]$. 
+\omega(x) = \mathbb{1}_{[0, 1)}(x),
+$$ 
+and flux $f(u) = u$.
+
+Plots can be seen in the graphs/ dir and source codes can be found in the code/ dir. 
 
 
 # References 
