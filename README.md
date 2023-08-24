@@ -38,7 +38,7 @@ where $\ast$ is the convolution product
 $$
     (u(\cdot,t) \ast \omega) (x) = \int_{\mathbb{R}} u(x-y, t) \, \omega(y) \, dy,
 $$
-,$\omega$ is an integrable kernel and $V$ is a velocity function. The convolution is precisely what makes the conservation law "non-local" as it requires the knowledge of the function $u$ on the whole space (more precisely on the support of a translation of the kernel $\omega$) whereas a derivation is computed point-wise, that is, locally. 
+, $\omega$ is an integrable kernel and $V$ is a velocity function. The convolution is precisely what makes the conservation law "non-local" as it requires the knowledge of the function $u$ on the whole space (more precisely on the support of a translation of the kernel $\omega$) whereas a derivation is computed point-wise, that is, locally. 
 
 ## Schemes 
 
